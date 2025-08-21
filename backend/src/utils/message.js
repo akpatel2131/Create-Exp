@@ -1,15 +1,15 @@
 
-const successMessage = (message) => {
+const successMessage = (data) => {
     return {
         success: true,
-        message: message,
+        data,
     }
 }
 
 const errorMessage = (message) => {
     return {
         success: false,
-        message: message,
+        error: message,
     }
 }
 

@@ -1,8 +1,10 @@
-
 import ClientListTable from "./components/ClientListTable";
+import { UserProvider } from "./context/UserContext";
 function App() {
   return (
-    <ClientListTable />
+    <UserProvider>
+      <ClientListTable />
+    </UserProvider>
   );
 }
 

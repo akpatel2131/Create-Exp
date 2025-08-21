@@ -1,4 +1,5 @@
 import React from "react";
+import { format } from "date-fns";
 
 const ClientTableRow = ({ client }) => {
   return (
@@ -10,7 +11,7 @@ const ClientTableRow = ({ client }) => {
         {client.name}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {client.type}
+        {client.clientType}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {client.email}
@@ -23,7 +24,10 @@ const ClientTableRow = ({ client }) => {
         ></span>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {client.updatedBy}
+        {format(client.createdAt, "yyyy-MM-dd")}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {format(client.updatedAt, "yyyy-MM-dd")}
       </td>
     </tr>
   );

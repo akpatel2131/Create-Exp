@@ -1,7 +1,14 @@
 import React from "react";
 import ClientTableRow from "./ClientTableRow";
+import { useUserContext } from "../context/UserContext";
 
-const ClientTable = ({ clients }) => {
+const ClientTable = () => {
+  const { clientData, clientDataLoading } = useUserContext();
+
+  if (clientDataLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden">
       <table className="w-full">
@@ -23,12 +30,15 @@ const ClientTable = ({ clients }) => {
               Status
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-              Updated By
+              created At
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              updated At
             </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {clients.map((client) => (
+          {clientData.map((client) => (
             <ClientTableRow key={client.id} client={client} />
           ))}
         </tbody>
