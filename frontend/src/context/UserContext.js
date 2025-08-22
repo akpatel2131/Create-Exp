@@ -10,7 +10,15 @@ export const UserProvider = ({ children }) => {
 
   const [{ loading: clientDataLoading }, fetchClientData] = useAsyncFn(
     async (sortCriteria) => {
-      const response = await getClientList(sortCriteria);
+      const query = {}
+      if(sortCriteria && sortCriteria.length > 0){
+        sortCriteria.forEach((sort) => {
+          query[sort.field] = sort.direction;
+        });
+      }
+
+      console.log({ query });
+      const response = await getClientList(query);
       setClientData(response.data.data);
       return response.data.data;
     },
@@ -39,8 +47,16 @@ export const UserProvider = ({ children }) => {
       handleCreateClient,
       isModalOpen,
       setIsModalOpen,
+      fetchClientData,
     };
-  }, [clientData, clientDataLoading, createClientLoading, isModalOpen, handleCreateClient]);
+  }, [
+    clientData,
+    clientDataLoading,
+    createClientLoading,
+    isModalOpen,
+    handleCreateClient,
+    fetchClientData,
+  ]);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

@@ -2,15 +2,22 @@ import React from "react";
 import ClientTableRow from "./ClientTableRow";
 import { useUserContext } from "../context/UserContext";
 
-const ClientTable = () => {
+const ClientTable = ({ activeTab }) => {
   const { clientData, clientDataLoading } = useUserContext();
 
   if (clientDataLoading) {
     return <div>Loading...</div>;
   }
 
+  const data =
+    activeTab === "All"
+      ? clientData
+      : activeTab === "Individual"
+      ? clientData.filter((item) => item.clientType === "Individual")
+      : clientData.filter((item) => item.clientType === "Company");
+
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="border border-gray-200 rounded-lg overflow-scroll">
       <table className="w-full">
         <thead className="bg-gray-50">
           <tr>
@@ -38,7 +45,7 @@ const ClientTable = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {clientData.map((client) => (
+          {data.map((client) => (
             <ClientTableRow key={client.id} client={client} />
           ))}
         </tbody>

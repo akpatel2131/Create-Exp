@@ -4,8 +4,7 @@ import AddClientModal from "./AddClientModal";
 import { useUserContext } from "../context/UserContext";
 
 const AddClientButton = () => {
-  const {isModalOpen, setIsModalOpen, handleCreateClient} = useUserContext();
-
+  const { isModalOpen, setIsModalOpen, handleCreateClient } = useUserContext();
 
   return (
     <>
@@ -17,11 +16,13 @@ const AddClientButton = () => {
         <span>Add Client</span>
       </button>
 
-      {isModalOpen && <AddClientModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleCreateClient}
-      />}
+      {isModalOpen && (
+        <AddClientModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleCreateClient}
+        />
+      )}
     </>
   );
 };

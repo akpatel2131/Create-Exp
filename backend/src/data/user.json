@@ -1,11 +1,65 @@
 [
   {
-    "name": "krunal patel",
+    "name": "raghav patel",
     "clientType": "Individual",
-    "email": "akpatel2131@gmail.com",
+    "email": "raghav.patel2131@gmail.com",
     "status": "Active",
-    "id": "ZMZ-v27a",
-    "createdAt": "2025-08-21T15:13:35.967Z",
-    "updatedAt": "2025-08-21T15:13:35.967Z"
+    "id": 1,
+    "createdAt": "2025-08-22T03:21:49.702Z",
+    "updatedAt": "2025-08-22T03:21:49.702Z"
+  },
+  {
+    "name": "sandeep choksi",
+    "clientType": "Individual",
+    "email": "sndi333@gmail.com",
+    "status": "Active",
+    "id": 2,
+    "createdAt": "2025-08-22T03:22:11.858Z",
+    "updatedAt": "2025-08-22T03:22:11.858Z"
+  },
+  {
+    "name": "jay panchal",
+    "clientType": "Individual",
+    "email": "jay.panchal22@gmail.com",
+    "status": "Active",
+    "id": 3,
+    "createdAt": "2025-08-22T03:22:41.311Z",
+    "updatedAt": "2025-08-22T03:22:41.312Z"
+  },
+  {
+    "name": "sandeep modi",
+    "clientType": "Company",
+    "email": "modiSandeep11@gmail.com",
+    "status": "Inactive",
+    "id": 4,
+    "createdAt": "2025-08-22T03:23:12.758Z",
+    "updatedAt": "2025-08-22T03:23:12.758Z"
+  },
+  {
+    "name": "parth patel",
+    "clientType": "Individual",
+    "email": "parth.patel@gmail.com",
+    "status": "Active",
+    "id": 5,
+    "createdAt": "2025-08-22T03:24:25.946Z",
+    "updatedAt": "2025-08-22T03:24:25.946Z"
+  },
+  {
+    "name": "sanket gamit",
+    "clientType": "Company",
+    "email": "snkpatel2131@gmail.com",
+    "status": "Inactive",
+    "id": 6,
+    "createdAt": "2025-08-22T03:28:08.592Z",
+    "updatedAt": "2025-08-22T03:28:08.592Z"
+  },
+  {
+    "name": "kapil sharma",
+    "clientType": "Company",
+    "email": "kapil.comedy@gmail.com",
+    "status": "Active",
+    "id": 7,
+    "createdAt": "2025-08-22T03:28:38.414Z",
+    "updatedAt": "2025-08-22T03:28:38.414Z"
   }
 ]

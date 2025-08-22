@@ -23,6 +23,11 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
     mode: "onChange",
   });
 
+  const submitForm = (data) => {
+    onSubmit(data);
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -30,7 +35,7 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
       <div className="bg-white w-full max-w-md rounded-xl shadow-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Add New Client</h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(submitForm)} className="space-y-4">
           {/* Client Name */}
           <div>
             <label className="block text-sm font-medium mb-1">

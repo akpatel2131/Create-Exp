@@ -19,7 +19,7 @@ const ClientTableRow = ({ client }) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <span
           className={`inline-flex items-center w-2 h-2 rounded-full ${
-            client.status === "active" ? "bg-green-400" : "bg-gray-400"
+            client.status === "Active" ? "bg-green-400" : "bg-gray-400"
           }`}
         ></span>
       </td>

@@ -8,7 +8,6 @@ import Tabs from "./Tabs";
 import { useUserContext } from "../context/UserContext";
 
 export default function ClientListTable() {
-  const { clientData } = useUserContext();
   const [showSortPanel, setShowSortPanel] = useState(false);
   const [sortCriteria, setSortCriteria] = useState([]);
   const [activeTab, setActiveTab] = useState("All");
@@ -16,9 +15,9 @@ export default function ClientListTable() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 bg-white">
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">Clients</h1>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 flex-wrap space-y-4">
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 align-self-end">
           <div className="relative">
             <button
               onClick={() => setShowSortPanel(!showSortPanel)}
@@ -44,11 +43,7 @@ export default function ClientListTable() {
           <AddClientButton />
         </div>
       </div>
-      <ClientTable />
-
-      <div className="mt-4 text-sm text-gray-500">
-        Showing {clientData.length} clients
-      </div>
+      <ClientTable activeTab={activeTab}/>
     </div>
   );
 }

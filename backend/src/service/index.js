@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const { nanoid } = require("nanoid");
 
 const USER_FILE = path.join(__dirname, "../data/user.json");
 
@@ -17,23 +16,43 @@ const writeFileSync = (user) => {
 };
 
 const sortUserList = (key, order, userList) => {
-  if (order === -1) {
-    return userList.sort((a, b) => b[key] - a[key]);
-  }
-  return userList.sort((a, b) => a[key] - b[key]);
+  return [...userList].sort((a, b) => {
+    let valA = a[key];
+    let valB = b[key];
+
+    if (valA == null) return order === "desc" ? 1 : -1;
+    if (valB == null) return order === "desc" ? -1 : 1;
+
+    if (key === "id") {
+      return order === "desc" ? valB - valA : valA - valB;
+    }
+
+    if (key === "createdAt" || key === "updatedAt") {
+      const dateA = new Date(valA);
+      const dateB = new Date(valB);
+
+      return order === "desc" ? dateB - dateA : dateA - dateB;
+    }
+
+    return order === "desc"
+      ? String(valB).localeCompare(String(valA))
+      : String(valA).localeCompare(String(valB));
+  });
 };
 
 const fetchUserList = (query) => {
   try {
     let user = readUserListFile();
-    const { name, createAt, updatedAt, clientId } = query;
+    const { name, createdAt, updatedAt, clientId } = query;
+
+    console.log({ name, createdAt, updatedAt, clientId });
 
     if (name) {
       user = sortUserList("name", name, user);
     }
 
-    if (createAt) {
-      user = sortUserList("createAt", createAt, user);
+    if (createdAt) {
+      user = sortUserList("createdAt", createdAt, user);
     }
 
     if (updatedAt) {
@@ -41,7 +60,7 @@ const fetchUserList = (query) => {
     }
 
     if (clientId) {
-      user = sortUserList("clientId", clientId, user);
+      user = sortUserList("id", clientId, user);
     }
 
     return user;
@@ -53,7 +72,7 @@ const fetchUserList = (query) => {
 const createUser = (user) => {
   try {
     const userList = readUserListFile();
-    user.id = nanoid(8);
+    user.id = userList.length + 1;
     user.createdAt = new Date().toISOString();
     user.updatedAt = new Date().toISOString();
     userList.push(user);

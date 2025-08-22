@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { X, ChevronUp, ChevronDown } from "lucide-react";
 import { SORT_OPTIONS } from "../constant";
+import { useUserContext } from "../context/UserContext";
 
 const SortPanel = ({ selectedSort, onChange, onClose }) => {
   const [localSort, setLocalSort] = useState(selectedSort || []);
+  const { fetchClientData } = useUserContext();
 
   const toggleDirection = (index) => {
     setLocalSort((prev) =>
@@ -25,12 +27,20 @@ const SortPanel = ({ selectedSort, onChange, onClose }) => {
   };
 
   const applySort = () => {
+    fetchClientData(localSort);
     onChange(localSort);
     onClose();
   };
 
+  const handleClearAll = () => {
+    setLocalSort([]);
+    fetchClientData([]);
+    onChange([]);
+    onClose();
+  };
+
   return (
-    <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+    <div className="absolute left-0 sm:left-auto sm:right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-medium text-gray-900">Sort By</h3>
@@ -80,22 +90,22 @@ const SortPanel = ({ selectedSort, onChange, onClose }) => {
 
         {/* Add new sort option */}
         <div className="space-y-2">
-          {SORT_OPTIONS
-            .filter((o) => !localSort.some((s) => s.field === o.value))
-            .map((option) => (
-              <button
-                key={option.value}
-                onClick={() => addSortOption(option.value)}
-                className="w-full flex items-center space-x-2 p-2 text-left hover:bg-gray-50 rounded-md"
-              >
-                <span>{option.icon}</span>
-                <span className="text-sm">{option.label}</span>
-              </button>
-            ))}
+          {SORT_OPTIONS.filter(
+            (o) => !localSort.some((s) => s.field === o.value)
+          ).map((option) => (
+            <button
+              key={option.value}
+              onClick={() => addSortOption(option.value)}
+              className="w-full flex items-center space-x-2 p-2 text-left hover:bg-gray-50 rounded-md"
+            >
+              <span>{option.icon}</span>
+              <span className="text-sm">{option.label}</span>
+            </button>
+          ))}
         </div>
         <div className="flex items-center justify-between mt-4 pt-4 border-t">
           <button
-            onClick={() => setLocalSort([])}
+            onClick={handleClearAll}
             className="text-sm text-gray-500 hover:text-gray-700"
           >
             Clear all

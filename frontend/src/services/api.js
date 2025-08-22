@@ -5,7 +5,7 @@ const API_BASE = process.env.REACT_APP_API_ENDPOINT || "";
 
 export const getClientList = async (query) => {
   return axios.get(`${API_BASE}/client`, {
-    query,
+    params: query,
   });
 };
 
