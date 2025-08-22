@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useUserContext } from "../context/UserContext";
 
 const HookFormWrapper = ({ children, control, name }) => {
   const child = React.Children.only(children);
@@ -13,6 +14,7 @@ const HookFormWrapper = ({ children, control, name }) => {
 };
 
 const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
+  const { createDataLoading } = useUserContext();
   const { control, handleSubmit } = useForm({
     defaultValues: {
       name: "",
@@ -23,8 +25,8 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
     mode: "onChange",
   });
 
-  const submitForm = (data) => {
-    onSubmit(data);
+  const submitForm = async (data) => {
+    await onSubmit(data);
     onClose();
   };
 
@@ -105,8 +107,9 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
             <button
               type="submit"
               className="px-4 py-2 bg-black text-white rounded-md text-sm hover:bg-gray-800"
+              disabled={createDataLoading}
             >
-              Save
+              {createDataLoading ? "Saving..." : "Save"}
             </button>
           </div>
         </form>

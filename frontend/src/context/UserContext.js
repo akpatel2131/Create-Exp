@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { getClientList, createClient } from "../services/api";
 import { useEffectOnce, useAsyncFn } from "react-use";
+import { toast } from "react-toastify";
 
 export const UserContext = createContext();
 
@@ -10,27 +11,35 @@ export const UserProvider = ({ children }) => {
 
   const [{ loading: clientDataLoading }, fetchClientData] = useAsyncFn(
     async (sortCriteria) => {
-      const query = {}
-      if(sortCriteria && sortCriteria.length > 0){
-        sortCriteria.forEach((sort) => {
-          query[sort.field] = sort.direction;
-        });
-      }
+      try {
+        const query = {};
+        if (sortCriteria && sortCriteria.length > 0) {
+          sortCriteria.forEach((sort) => {
+            query[sort.field] = sort.direction;
+          });
+        }
 
-      console.log({ query });
-      const response = await getClientList(query);
-      setClientData(response.data.data);
-      return response.data.data;
+        const response = await getClientList(query);
+        setClientData(response.data.data);
+        toast.success("Client List Fetched Successfully");
+        return response.data.data;
+      } catch (error) {
+        toast.error(error.response.data.error);
+      }
     },
     []
   );
 
   const [{ loading: createClientLoading }, handleCreateClient] = useAsyncFn(
     async (data) => {
-      console.log({ data });
-      const response = await createClient(data);
-      fetchClientData();
-      return response.data;
+      try {
+        const response = await createClient(data);
+        toast.success("Client Created Successfully");
+        await fetchClientData();
+        return response.data;
+      } catch (error) {
+        toast.error(error.response.data.error);
+      }
     },
     [fetchClientData]
   );

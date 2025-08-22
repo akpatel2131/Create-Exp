@@ -45,7 +45,6 @@ const fetchUserList = (query) => {
     let user = readUserListFile();
     const { name, createdAt, updatedAt, clientId } = query;
 
-    console.log({ name, createdAt, updatedAt, clientId });
 
     if (name) {
       user = sortUserList("name", name, user);

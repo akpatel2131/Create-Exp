@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import ClientTable from "./ClientTable";
-import { USER_DATA } from "../data";
 import SortPanel from "./SortPanel";
 import { Filter } from "lucide-react";
 import AddClientButton from "./AddClientButton";
 import Tabs from "./Tabs";
-import { useUserContext } from "../context/UserContext";
 
-export default function ClientListTable() {
+export default function ClientDashboard() {
   const [showSortPanel, setShowSortPanel] = useState(false);
   const [sortCriteria, setSortCriteria] = useState([]);
   const [activeTab, setActiveTab] = useState("All");
@@ -15,7 +13,7 @@ export default function ClientListTable() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 bg-white">
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">Clients</h1>
-      <div className="flex items-center justify-between mb-6 flex-wrap space-y-4">
+      <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between mb-6 flex-wrap gap-4">
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="flex items-center space-x-4 align-self-end">
           <div className="relative">
